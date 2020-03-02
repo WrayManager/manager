@@ -239,7 +239,7 @@ main(){
 
     installV2Ray "${ZIPFILE}" "${ZIPROOT}" || return $?
     installInitScript "${ZIPFILE}" "${ZIPROOT}" || return $?
-    colorEcho ${GREEN} "V2Ray ${NEW_VER} is installed."
+    colorEcho ${GREEN} "V2Ray is installed."
     rm -rf /tmp/v2ray
     return 0
 }

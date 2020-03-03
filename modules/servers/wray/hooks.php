@@ -21,7 +21,7 @@
  * @license https://www.whmcs.com/license/ WHMCS Eula
  */
 
-add_hook('DailyCronJob', 1, function($vars) {
+add_hook('AfterCronJob', 1, function($vars) {
     foreach(\WHMCS\Module\Addon\Wray\Models\User::with("product")->get() as  $user){
         if($user->enabled && time() > $user->will_reset_on->timestamp){
             $user->transfer = $user->product->transfer * [

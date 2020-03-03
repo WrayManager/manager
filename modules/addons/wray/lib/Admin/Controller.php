@@ -177,7 +177,7 @@ class Controller
         global $whmcs;
         $smarty = new \Smarty();
         $smarty->setCompileDir($whmcs->getTemplatesCacheDir());
-        $smarty->setTemplateDir("/www/wwwroot/whmcs/modules/addons/wray/templates");
+        $smarty->setTemplateDir($whmcs->getTemplatesCacheDir() . "/../modules/addons/wray/templates");
         $smarty->registerPlugin("modifier","flowautoshow", [Tools::class, "bytesToStr"]);
         $this->smarty = $smarty;
     }

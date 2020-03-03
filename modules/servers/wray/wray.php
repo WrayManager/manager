@@ -61,7 +61,7 @@ function wray_MetaData()
 /**
  * Define product configuration options.
  *
- * The values you return here define the configuration options that are
+ * The values you return here define the configurationwo options that are
  * presented to a user when configuring a product for use with the module. These
  * values are then made available in all module function calls with the key name
  * configoptionX - with X being the index number of the field from 1 to 24.

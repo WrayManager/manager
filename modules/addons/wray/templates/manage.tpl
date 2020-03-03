@@ -26,8 +26,8 @@
                         <a href="?module=wray&action=add_server" class="btn btn-success btn-sm">添加服务器</a>
                     </div>
                 </div>
-                <div class="panel-body">
-                    <table class="table table-hover">
+                <div class="panel-body" style="overflow: auto">
+                    <table class="table table-hover" style="white-space: nowrap;">
                         <thead>
                         <tr>
                             <th>ID</th>
@@ -41,7 +41,8 @@
                             <th>用户数</th>
                             <th>内存</th>
                             <th>负载</th>
-                            <th>
+                            <th>最后上线于</th>
+                            <th style="width: 180px;">
                                 操作
                             </th>
                         </tr>
@@ -65,8 +66,9 @@
                                     <th>{$server->user_count}</th>
                                     <th>{$server->friendly_mem}</th>
                                     <th>{$server->friendly_load}</th>
-                                    <th>
-                                        <div class="btn-group">
+                                    <th>{$server->updated_at->toDateTimeString()}</th>
+                                    <th style="width: 180px;">
+                                        <div class="btn-group" style="display: flex">
                                             <button class="btn btn-success btn-xs" data-clipboard-text="curl -o install.sh https://raw.githubusercontent.com/WrayManager/manager/master/install.sh && bash ./install.sh --host {$host} --token {$server->token}"> 复制一键安装脚本 </button>
                                             <a class="btn btn-success btn-xs" href="?module=wray&action=edit_server&server_id={$server->id}">编辑</a>
                                             <a class="btn btn-xs btn-danger" href="?module=wray&action=del_server&server_id={$server->id}">删除</a>
@@ -76,7 +78,7 @@
                             {/foreach}
                         {else}
                             <tr style="height:100px;">
-                                <th colspan="12" class="text-center" style="vertical-align: middle;">
+                                <th colspan="13" class="text-center" style="vertical-align: middle;">
                                     <a href="?module=wray&action=add_server">
                                         当前没有服务器, 点我添加.
                                     </a>

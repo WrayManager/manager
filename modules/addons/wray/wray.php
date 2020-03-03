@@ -49,45 +49,53 @@ function wray_activate()
 {
     // Create custom tables and schema required by your module
     try {
-        Capsule::schema()->create('wray_servers', function ($table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('host');
-            $table->string('tags');
-            $table->integer('port');
-            $table->integer("alter_id");
-            $table->string('network');
-            $table->boolean('tls');
-            $table->bigInteger("mem_total");
-            $table->bigInteger("mem_available");
-            $table->string("load");
-            $table->timestamps();
-        });
-        Capsule::schema()->create("wray_product_server", function ($table) {
-            $table->increments('id');
-            $table->integer('server_id');
-            $table->integer('product_id');
-        });
-        Capsule::schema()->create("wray_users", function ($table) {
-            $table->increments('id');
-            $table->uuid('uuid');
-            $table->bigInteger('service_id');
-            $table->bigInteger('product_id');
-            $table->bigInteger('transfer');
-            $table->bigInteger('upload');
-            $table->bigInteger('download');
-            $table->boolean('enabled');
-            $table->timestamp('will_reset_on')->nullable()->default(null);
-            $table->timestamps();
-        });
-        Capsule::schema()->create("wray_stats", function ($table) {
-            $table->increments('id');
-            $table->integer("for_id");
-            $table->string("for_type");
-            $table->bigInteger("upload");
-            $table->bigInteger("download");
-            $table->timestamps();
-        });
+        if (!Capsule::hasTable('wray_servers')) {
+            Capsule::schema()->create('wray_servers', function ($table) {
+                $table->increments('id');
+                $table->string('name');
+                $table->string('host');
+                $table->string('tags');
+                $table->integer('port');
+                $table->integer("alter_id");
+                $table->string('network');
+                $table->boolean('tls');
+                $table->bigInteger("mem_total");
+                $table->bigInteger("mem_available");
+                $table->string("load");
+                $table->timestamps();
+            });
+        }
+        if (!Capsule::hasTable('wray_product_server')) {
+            Capsule::schema()->create("wray_product_server", function ($table) {
+                $table->increments('id');
+                $table->integer('server_id');
+                $table->integer('product_id');
+            });
+        }
+        if (!Capsule::hasTable('wray_users')) {
+            Capsule::schema()->create("wray_users", function ($table) {
+                $table->increments('id');
+                $table->uuid('uuid');
+                $table->bigInteger('service_id');
+                $table->bigInteger('product_id');
+                $table->bigInteger('transfer');
+                $table->bigInteger('upload');
+                $table->bigInteger('download');
+                $table->boolean('enabled');
+                $table->timestamp('will_reset_on')->nullable()->default(null);
+                $table->timestamps();
+            });
+        }
+        if (!Capsule::hasTable('wray_stats')) {
+            Capsule::schema()->create("wray_stats", function ($table) {
+                $table->increments('id');
+                $table->integer("for_id");
+                $table->string("for_type");
+                $table->bigInteger("upload");
+                $table->bigInteger("download");
+                $table->timestamps();
+            });
+        }
         return [
             // Supported values here include: success, error or info
             'status' => 'success',
@@ -106,11 +114,6 @@ function wray_deactivate()
 {
     // Undo any database and schema modifications made by your module here
     try {
-        Capsule::schema()->dropIfExists('wray_servers');
-        Capsule::schema()->dropIfExists('wray_product_server');
-        Capsule::schema()->dropIfExists('wray_users');
-        Capsule::schema()->dropIfExists('wray_stats');
-
         return [
             // Supported values here include: success, error or info
             'status' => 'success',
@@ -137,20 +140,4 @@ function wray_output($vars)
     $dispatcher = new AdminDispatcher();
     $response = $dispatcher->dispatch($action, $vars);
     echo $response;
-}
-
-/**
- * Admin Area Sidebar Output.
- *
- * Used to render output in the admin area sidebar.
- * This function is optional.
- *
- * @param array $vars
- *
- * @return string
- */
-function wray_sidebar($vars)
-{
-    $sidebar = '<p>吼哇!</p>';
-    return $sidebar;
 }

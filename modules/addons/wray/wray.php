@@ -102,6 +102,12 @@ function wray_activate()
             'description' => 'Wray插件激活成功!',
         ];
     } catch (\Exception $e) {
+        if(strpos($e->getMessage(),"SQLSTATE[42S01]") !== false){
+            return [
+                'status' => 'success',
+                'description' => 'Wray插件激活成功!',
+            ];
+        }
         return [
             // Supported values here include: success, error or info
             'status' => "error",

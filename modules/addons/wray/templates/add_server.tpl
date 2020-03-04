@@ -49,9 +49,11 @@
                             <label class="btn btn-info">
                                 <input type="radio" name="network" value="h2"> HTTP/2
                             </label>
+                            <!--
                             <label class="btn btn-info">
                                 <input type="radio" name="network" value="quic"> QUIC
                             </label>
+                            -->
                             <label class="btn btn-info">
                                 <input type="radio" name="network" value="kcp"> KCP
                             </label>

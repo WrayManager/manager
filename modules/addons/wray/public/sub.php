@@ -554,14 +554,14 @@ if($user){
             foreach($user->product->servers as $s){
                 $ret.=$s->toVmess($user->uuid)."\r\n";
             }
-            echo $ret;
+            echo base64_encode($ret);
         }
     }else{
         $ret = "";
         foreach($user->product->servers as $s){
             $ret.=$s->toVmess($user->uuid)."\r\n";
         }
-        echo $ret;
+        echo base64_encode($ret);
     }
 }else{
     echo "Access Denied!";

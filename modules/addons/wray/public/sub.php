@@ -14,20 +14,36 @@ if($user){
             $uri = '';
             foreach ($user->product->servers as $item) {
                 $uri .= "vmess=" . $item->host . ":" . $item->port . ", method=none, password=" . $user->uuid . ", fast-open=false, udp-relay=false, tag=" . $item->name;
-                $uri .= ', obfs=' . $item->network;
+                switch ($item->network){
+                    case "tcp":
+                        if($item->tls){
+                            $uri .= ', obfs=over-tls';
+                        }
+                        break;
+                    case "ws":
+                        if($item->tls){
+                            $uri .= ', obfs=wss';
+                        }else{
+                            $uri .= ', obfs=ws';
+                        }
+                        break;
+                    default:
+                        $uri .= " 暂不被QuanX支持的协议";
+                        break;
+                }
                 $uri .= "\r\n";
             }
-            echo base64_encode($uri);
+            echo $uri;
         } else if (strpos($_SERVER['HTTP_USER_AGENT'], 'Quantumult') !== false) {
             $uri = '';
             header('subscription-userinfo: upload=' . $user->u . '; download=' . $user->d . ';total=' . $user->transfer_enable);
             foreach ($user->product->servers as $item) {
                 $str = '';
-                $str .= $item->name . '= vmess, ' . $item->host . ', ' . $item->port . ', chacha20-ietf-poly1305, "' . $user->v2ray_uuid . '", over-tls=' . ($item->tls ? "true" : "false") . ', certificate=0, group=' . config('v2board.app_name', 'V2Board');
+                $str .= $item->name . '= vmess, ' . $item->host . ', ' . $item->port . ', chacha20-ietf-poly1305, "' . $user->v2ray_uuid . '", over-tls=' . ($item->tls ? "true" : "false") . ', certificate=0';
                 $str .= ', obfs=' . $item->network;
                 $uri .= "vmess://" . base64_encode($str) . "\r\n";
             }
-            return base64_encode($uri);
+            echo base64_encode($uri);
         } else if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'clash') !== false) {
             $proxy = [];
             $proxyGroup = [];

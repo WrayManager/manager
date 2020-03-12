@@ -33,7 +33,10 @@ class Controller
             'tabOverviewReplacementTemplate' => 'overview',
             'templateVariables' => [
                 'user' => $user,
-                'nextDueDay' => $vars['model']->nextDueDate
+                'nextDueDay' => $vars['model']->nextDueDate,
+                'sub' => urlencode(localAPI("EncryptPassword", [
+                    'password2' => (string)$user->uuid,
+                ])['password'])
             ]
         ];
     }

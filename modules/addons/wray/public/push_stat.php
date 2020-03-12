@@ -14,6 +14,7 @@ if(Server::find($results['password'])){
     $stat = $_POST['stat'];
     $stat = json_decode(html_entity_decode($stat), true);
     try {
+        $server = Server::find($results['password']);
         foreach($stat['users'] as $key => $u){
             $s = new \WHMCS\Module\Addon\Wray\Models\Stat();
             $s->upload = $u['upload'];
@@ -23,8 +24,8 @@ if(Server::find($results['password'])){
             $s->save();
             $user = \WHMCS\Module\Addon\Wray\Models\User::where("uuid",$key)->first();
             if($user){
-                $user->upload += $u['upload'];
-                $user->download += $u['download'];
+                $user->upload += $u['upload'] * $server->rate;
+                $user->download += $u['download'] * $server->rate;
                 $user->save();
             }
         }
@@ -41,5 +42,4 @@ if(Server::find($results['password'])){
     echo "succeed!";
 }else{
     echo "Access Denied!";
-
 }

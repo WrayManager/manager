@@ -56,7 +56,9 @@ class Controller
         $server->host = $this->input('host', "123.123.123.123");
         $server->port = $this->input('port', "443");
         $server->alter_id = $this->input('alter_id', "2");
+        $server->rate = $this->input('rate', 1);
         $server->network = $this->input('network', "tcp");
+        $server->ws_path = $this->input('ws_path', "/");
         $server->tags = $this->input('tags', "");
         $server->tls = $this->input('tls', false);
         if ($server->tls == 'on') {
@@ -123,7 +125,9 @@ class Controller
             $server->host = $this->input('host', "123.123.123.123");
             $server->port = $this->input('port', "443");
             $server->alter_id = $this->input('alter_id', "2");
+            $server->rate = $this->input('rate', 1);
             $server->network = $this->input('network', "tcp");
+            $server->ws_path = $this->input('ws_path', "/");
             $server->tags = $this->input('tags', "");
             $server->tls = $this->input('tls', false);
             if ($server->tls == 'on') {

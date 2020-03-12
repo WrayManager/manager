@@ -35,8 +35,10 @@
                             <th>地址</th>
                             <th>标签</th>
                             <th>端口</th>
+                            <th>倍率</th>
                             <th>AlterID</th>
                             <th>网络设置</th>
+                            <th>ws路径</th>
                             <th>TLS</th>
                             <th>用户数</th>
                             <th>内存</th>
@@ -60,8 +62,10 @@
                                         {/foreach}
                                     </th>
                                     <th>{$server->port}</th>
+                                    <th>{$server->rate}</th>
                                     <th>{$server->alter_id}</th>
                                     <th>{$server->network}</th>
+                                    <th>{$server->ws_path}</th>
                                     <th>{if $server->tls} ✓ {else} X {/if}</th>
                                     <th>{$server->user_count}</th>
                                     <th>{$server->friendly_mem}</th>

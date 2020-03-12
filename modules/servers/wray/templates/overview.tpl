@@ -69,7 +69,7 @@
                             <td style="width: 45%;"><span id="userId" onclick="javascript:document.getElementById('userId').innerHTML='{$user->uuid}';">点击显示隐藏内容</span></td>
                             <td style="width: 10%">
                                 <div class="btn-group btn-group-xs" role="group" aria-label="Extra-small button group">
-                                    <button type="button" class="btn btn-info btn-xs autoset" id="selectsub"  data-clipboard-text="{$systemurl}/modules/addons/wray/public/sub.php?uuid={$user->uuid}">
+                                    <button type="button" class="btn btn-info btn-xs autoset" id="selectsub"  data-clipboard-text="{$systemurl}/index.php?m=wray&token={$sub}">
                                         <span class="glyphicon glyphicon-link" aria-hidden="true"></span> 复制订阅地址
                                     </button>
                                 </div>
@@ -113,7 +113,7 @@
                         {foreach $user->product->servers as $server}
                             <tr>
                                 <td>{$server->name}</td>
-                                <td>{$server->host}</td>
+                                <td>{$server->host}{if $server->network=="ws"}{$server->ws_path}{/if}</td>
                                 <td>{$server->port}</td>
                                 <td>{$server->network}</td>
                                 <td>{if $server->tls} ✓ {else} X {/if}</td>

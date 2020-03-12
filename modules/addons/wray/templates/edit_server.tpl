@@ -32,6 +32,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="rate" class="col-sm-2 control-label">流量倍率</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="rate" name="rate" placeholder="1" value="{$server->rate}">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="alter_id" class="col-sm-2 control-label">AlterID</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="alter_id" name="alter_id" placeholder="2" value="{$server->alter_id}">
@@ -63,6 +69,12 @@
                             <label class="btn btn-info {if $server->network == "kcp"}active{/if}">
                                 <input type="radio" name="network" value="kcp" {if $server->network == "kcp"}checked{/if}> KCP
                             </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ws_path" class="col-sm-2 control-label">ws路径</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="ws_path" name="ws_path" placeholder="/" value="{$server->ws_path}">
                         </div>
                     </div>
                     <div class="form-group">

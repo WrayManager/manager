@@ -91,7 +91,7 @@ class Server extends Model
             "net" => $this->network,
             "type" => "none",
             "host" => "",
-            "path" => "",
+            "path" => $this->network == 'ws' ? $this->ws_path : "",
             "tls" => $this->tls ? "tls" : ""
         ];
         return "vmess://" . base64_encode(json_encode($config));

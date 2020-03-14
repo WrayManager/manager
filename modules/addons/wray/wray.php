@@ -163,7 +163,7 @@ function wray_clientarea($vars) {
 
     if($user){
         if (isset($_SERVER['HTTP_USER_AGENT'])) {
-            if (strpos($_SERVER['HTTP_USER_AGENT'], 'Quantumult%20X') !== false) {
+            if (strpos($_SERVER['HTTP_USER_AGENT'], 'Quantumult%20X') !== false or $_GET['quanx'] == "on") {
                 $uri = '';
                 foreach ($user->product->servers as $item) {
                     $uri .= "vmess=" . $item->host . ":" . $item->port . ", method=none, password=" . $user->uuid . ", fast-open=false, udp-relay=false, tag=" . $item->name;
@@ -188,7 +188,7 @@ function wray_clientarea($vars) {
                     $uri .= "\r\n";
                 }
                 echo $uri;
-            } else if (strpos($_SERVER['HTTP_USER_AGENT'], 'Quantumult') !== false) {
+            } else if (strpos($_SERVER['HTTP_USER_AGENT'], 'Quantumult') !== false or $_GET['quan'] == "on") {
                 $uri = '';
                 header('subscription-userinfo: upload=' . $user->u . '; download=' . $user->d . ';total=' . $user->transfer_enable);
                 foreach ($user->product->servers as $item) {
@@ -198,7 +198,7 @@ function wray_clientarea($vars) {
                     $uri .= "vmess://" . base64_encode($str) . "\r\n";
                 }
                 echo base64_encode($uri);
-            } else if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'clash') !== false) {
+            } else if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'clash') !== false or $_GET['clash'] == "on") {
                 $proxy = [];
                 $proxyGroup = [];
                 $proxies = [];

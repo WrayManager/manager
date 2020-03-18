@@ -101,6 +101,7 @@
                         <tr>
                             <th>节点名称</th>
                             <th>连接地址</th>
+                            <th>流量倍率</th>
                             <th>连接端口</th>
                             <th>加密方式</th>
                             <th>TLS</th>
@@ -114,6 +115,7 @@
                             <tr>
                                 <td>{$server->name}</td>
                                 <td>{$server->host}{if $server->network=="ws"}{$server->ws_path}{/if}</td>
+                                <th>{$server->rate}</th>
                                 <td>{$server->port}</td>
                                 <td>{$server->network}</td>
                                 <td>{if $server->tls} ✓ {else} X {/if}</td>

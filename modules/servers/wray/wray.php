@@ -400,7 +400,7 @@ function wray_ChangePackage(array $params)
 function wray_AdminCustomButtonArray()
 {
     return array(
-        "重置流量" => "resetTransfer"
+        "重置流量" => "resetTraffic"
     );
 }
 

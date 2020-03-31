@@ -159,7 +159,11 @@ function wray_output($vars)
 function wray_clientarea($vars) {
     $user = \WHMCS\Module\Addon\Wray\Models\User::where("uuid",localAPI("DecryptPassword", [
         'password2' => (string)$_GET['token'],
-    ])['password'])->with("product.servers")->first();
+    ])['password'])->with([
+        "product.servers" => function($query){
+            $query->orderBy('name');
+        }
+    ])->first();
 
     if($user){
         if (isset($_SERVER['HTTP_USER_AGENT'])) {

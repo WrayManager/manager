@@ -21,7 +21,7 @@ class Controller
     {
         global $whmcs;
         $sub = Capsule::table("tblhosting")->selectRaw("count(*)")->whereRaw("packageid = tblproducts.id");
-        $servers = Server::withUserCount()->get();
+        $servers = Server::withUserCount()->orderBy('name')->get();
         $demo = new Server();
         $demo->host="请更改这里的地址";
         $demo->network = 'tcp';

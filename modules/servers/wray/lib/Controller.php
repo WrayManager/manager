@@ -28,7 +28,11 @@ class Controller
     }
 
     public function index($vars){
-        $user = User::where("service_id",$vars['serviceid'])->with("product.servers")->first();
+        $user = User::where("service_id",$vars['serviceid'])->with([
+            "product.servers" => function($query){
+                $query->orderBy('name');
+            }
+        ])->first();
         return [
             'tabOverviewReplacementTemplate' => 'overview',
             'templateVariables' => [

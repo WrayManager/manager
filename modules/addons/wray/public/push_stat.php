@@ -9,24 +9,28 @@ $token = $_POST['token'];
 $results = localAPI("DecryptPassword", [
     'password2' => $token,
 ]);
-
 if(Server::find($results['password'])){
     $stat = $_POST['stat'];
     $stat = json_decode(html_entity_decode($stat), true);
     try {
         $server = Server::find($results['password']);
         foreach($stat['users'] as $key => $u){
-            $s = new \WHMCS\Module\Addon\Wray\Models\Stat();
-            $s->upload = $u['upload'];
-            $s->download = $u['download'];
-            $s->for_id = \WHMCS\Module\Addon\Wray\Models\User::where("uuid",$key)->value('id');
-            $s->for_type = \WHMCS\Module\Addon\Wray\Models\User::class;
-            $s->save();
-            $user = \WHMCS\Module\Addon\Wray\Models\User::where("uuid",$key)->first();
-            if($user){
-                $user->upload += $u['upload'] * $server->rate;
-                $user->download += $u['download'] * $server->rate;
-                $user->save();
+            try {
+                $s = new \WHMCS\Module\Addon\Wray\Models\Stat();
+                $s->upload = $u['upload'];
+                $s->download = $u['download'];
+                $s->for_id = \WHMCS\Module\Addon\Wray\Models\User::where("uuid",$key)->value('id');
+                $s->for_type = \WHMCS\Module\Addon\Wray\Models\User::class;
+                $s->save();
+                $user = \WHMCS\Module\Addon\Wray\Models\User::where("uuid",$key)->first();
+                if($user){
+                    $user->upload += $u['upload'] * $server->rate;
+                    $user->download += $u['download'] * $server->rate;
+                    $user->save();
+                }
+            } catch (\Exception $e){
+                logModuleCall('wray', 'push_stat', json_encode([$key, $u, $s]),json_encode([$key, $u, $s]),json_encode([$key, $u, $s]));
+                logModuleCall('wray', 'push_stat', $e->getTraceAsString(), $e->getMessage(), $e->getMessage());
             }
         }
         $s = new \WHMCS\Module\Addon\Wray\Models\Stat();
@@ -37,7 +41,7 @@ if(Server::find($results['password'])){
         //$s->for = Server::find($results['password']);
         $s->save();
     } catch (\Exception $e){
-        logModuleCall('wray', __FUNCTION__, $e->getTraceAsString(), $e->getMessage(), $e->getMessage());
+        logModuleCall('wray', 'push_stat', $e->getTraceAsString(), $e->getMessage(), $e->getMessage());
     }
     echo "succeed!";
 }else{

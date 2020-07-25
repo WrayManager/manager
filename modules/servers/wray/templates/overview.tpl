@@ -73,6 +73,11 @@
                                         <span class="glyphicon glyphicon-link" aria-hidden="true"></span> 复制订阅地址
                                     </button>
                                 </div>
+                                <div class="btn-group btn-group-xs" role="group" aria-label="Extra-small button group">
+                                    <button type="button" class="btn btn-info btn-xs autoset" id="selectsubclash"  data-clipboard-text="{$systemurl}/index.php?m=wray&token={$sub}&clash=on">
+                                        <span class="glyphicon glyphicon-link" aria-hidden="true"></span> Clash 订阅地址
+                                    </button>
+                                </div>
                             </td>
                             <td style="width: 10%">
                                 <div class="btn-group btn-group-xs" role="group" aria-label="Extra-small button group">
@@ -168,3 +173,4 @@
         alert("产品还未开通!");
     </script>
 {/if}
+

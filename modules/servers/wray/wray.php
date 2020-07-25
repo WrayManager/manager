@@ -434,7 +434,6 @@ function wray_resetTraffic(array $params)
         $user->upload = 0;
         $user->download = 0;
         $user->enabled = 1;
-        $user->uuid = Uuid::uuid4();
         $user->save();
     } catch (Exception $e) {
         // Record the error in WHMCS's module log.

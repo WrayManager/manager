@@ -220,7 +220,9 @@ function wray_clientarea($vars) {
                         $array['tls'] = true;
                         $array['skip-cert-verify'] = true;
                     }
-                    $array['network'] = $item->network;
+                    if($item->network != "tcp"){
+                        $array['network'] = $item->network;
+                    }
                     $array['ws-path'] = $item->ws_path;
                     array_push($proxy, $array);
                     array_push($proxies, $item->name);
@@ -254,9 +256,9 @@ function wray_clientarea($vars) {
                     'log-level' => 'info',
                     'external-controller' => '0.0.0.0:9090',
                     'secret' => '',
-                    'Proxy' => $proxy,
-                    'Proxy Group' => $proxyGroup,
-                    'Rule' => [
+                    'proxies' => $proxy,
+                    'proxy-groups' => $proxyGroup,
+                    'rules' => [
                         "DOMAIN-SUFFIX,apps.apple.com,select",
                         "DOMAIN-SUFFIX,itunes.apple.com,select",
                         "DOMAIN-SUFFIX,blobstore.apple.com,select",

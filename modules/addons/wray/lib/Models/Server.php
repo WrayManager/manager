@@ -87,7 +87,7 @@ class Server extends Model
             "add" => (string)$this->host,
             "port" => (string)$this->port,
             "id" => (string)$uuid,
-            "aid" => "2",
+            "aid" => (string)$this->alter_id,
             "net" => $this->network,
             "type" => "none",
             "host" => "",
